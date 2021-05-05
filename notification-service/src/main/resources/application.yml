@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.0.101:3406/rabbit-mq-db
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        ddl-auto: none
+        naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    show-sql: true
+    database: mysql
+
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 6
+          max-interval: 10s
+          multiplier: 2
+    host: 192.168.0.101
+    port: 5672
+
+# HTTP Server
+server:
+  port: 7071
+  servlet:
+    context-path: /notification-service
+
+management:
+  security:
+    enabled: false
